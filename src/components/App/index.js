@@ -4,11 +4,13 @@ import HomePage from "../HomePage";
 import Login from "../Login";
 import Register from "../Register";
 import Dashboard from "../Dashboard";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { CssBaseline, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import firebase from "../firebase";
 import Theme from "../../ui/theme";
+
+import { ThemeProvider } from "styled-components";
+import Wrapper from "../../ui/components/Wrapper";
 
 export default function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
@@ -20,17 +22,18 @@ export default function App() {
   });
 
   return firebaseInitialized !== false ? (
-    <MuiThemeProvider theme={Theme}>
-      <CssBaseline />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/dashboard" component={Dashboard} />
-        </Switch>
-      </Router>
-    </MuiThemeProvider>
+    <ThemeProvider theme={Theme}>
+      <Wrapper>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/dashboard" component={Dashboard} />
+          </Switch>
+        </Router>
+      </Wrapper>
+    </ThemeProvider>
   ) : (
     <div id="loader">
       <CircularProgress />

@@ -13,7 +13,7 @@ import TrashIcon from "@material-ui/icons/Delete";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const Background = styled.div`
-  background: #209cee;
+  background: #fff;
   padding: 30px;
   height: 100vh;
 `;
@@ -29,7 +29,7 @@ const ItemStylized = styled.div`
 // text-decoration: items.isAcquired ? "line-through" : "" ;   ^ for above figure out how to make it work.
 
 const ItemList = styled.div`
-  background: #e8e8e8;
+  background: ${props => (props.grocery ? "#4dd0e1" : "#ef9a9a")};
   border-radius: 4px;
   padding: 10px;
   max-width: 400px;
@@ -38,13 +38,11 @@ const ItemList = styled.div`
 `;
 
 const GroceryStylized = styled.div`
-  background: #f19cea;
   text-align: center;
   margin: auto;
 `;
 
 const CartStylized = styled.div`
-  background: #eaf19c;
   text-align: center;
   margin: auto;
 `;
@@ -184,7 +182,7 @@ function List() {
         </GroceryStylized>
       </ItemList>
 
-      <ItemList>
+      <ItemList grocery>
         <CartStylized>
           <h3>Cart List</h3>
           {CartList().map(item => (
