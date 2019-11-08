@@ -18,6 +18,10 @@ const Background = styled.div`
   height: 100vh;
 `;
 
+const ListWrapper = styled.div`
+  background: #000;
+`;
+
 const ItemStylized = styled.div`
   background: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
@@ -71,6 +75,10 @@ function Item({ item, moveToCart, deleteItem }) {
   );
 }
 
+const showList = e => {
+  console.log(e.target);
+};
+
 function GroceryList() {
   const [items, setItems] = useState([]);
 
@@ -99,9 +107,12 @@ function GroceryList() {
   return items;
 }
 
+const PurchaseButton = event => {};
+
 function CartList() {
   const [cartItems, setCartItems] = useState([]);
   const user = firebase.auth().currentUser.uid;
+
   useEffect(() => {
     //Creates array of documents within Shopping List DB
     const unsubscribe = firebase
@@ -167,34 +178,36 @@ function List() {
 
   return (
     <Background>
-      <ItemList>
-        <ItemForm />
-        <GroceryStylized>
-          <h3>Grocery List</h3>
-          {GroceryList().map(item => (
-            <Item
-              key={item.id}
-              item={item}
-              moveToCart={moveToCart}
-              deleteItem={deleteItem}
-            />
-          ))}
-        </GroceryStylized>
-      </ItemList>
-
-      <ItemList grocery>
-        <CartStylized>
-          <h3>Cart List</h3>
-          {CartList().map(item => (
-            <Item
-              key={item.id}
-              item={item}
-              moveToCart={moveToCart}
-              deleteItem={deleteItem}
-            />
-          ))}
-        </CartStylized>
-      </ItemList>
+      <ListWrapper>
+        <ItemList>
+          <ItemForm />
+          <GroceryStylized onClick={showList}>
+            <h3>Grocery List</h3>
+            {GroceryList().map(item => (
+              <Item
+                key={item.id}
+                item={item}
+                moveToCart={moveToCart}
+                deleteItem={deleteItem}
+              />
+            ))}
+          </GroceryStylized>
+        </ItemList>
+        <ItemList grocery>
+          <CartStylized>
+            <h3>Cart List</h3>
+            {CartList().map(item => (
+              <Item
+                key={item.id}
+                item={item}
+                moveToCart={moveToCart}
+                deleteItem={deleteItem}
+              />
+            ))}
+          </CartStylized>
+        </ItemList>
+        <button onClick={PurchaseButton}>Purhcase</button>\
+      </ListWrapper>
     </Background>
   );
 }
