@@ -1,5 +1,27 @@
 import React, { useState } from "react";
 import * as firebase from "firebase/app";
+import styled from "styled-components";
+
+const StyledForm = styled.form`
+  width: 100%;
+  background-position: center;
+  color: transparent; /* Hide button text */
+  padding: 20px 70px;
+  background-color: #fff;
+  margin: 8px 0;
+  box-sizing: border-box;
+
+  input[type="text"] {
+    border: 2px solid black;
+    border-radius: 4px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  input[type="text"]:focus {
+    width: 100%;
+    height: 15px;
+  }
+`;
 
 export default function ItemForm() {
   const [value, setValue] = useState("");
@@ -30,13 +52,13 @@ export default function ItemForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <input
         type="text"
         value={value}
         placeholder={"Add to your List"}
         onChange={e => setValue(e.target.value)}
       />
-    </form>
+    </StyledForm>
   );
 }

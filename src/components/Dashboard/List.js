@@ -10,7 +10,6 @@ import ItemForm from "./ItemForm.js";
 import Icon from "@material-ui/core/Icon";
 import styled from "styled-components";
 import TrashIcon from "@material-ui/icons/Delete";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 const Background = styled.div`
   background: #fff;
@@ -19,16 +18,20 @@ const Background = styled.div`
 `;
 
 const ListWrapper = styled.div`
-  background: #000;
+  background: #fff;
 `;
 
 const ItemStylized = styled.div`
   background: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 18px;
+  height: 3em;
   margin-bottom: 6px;
   border-radius: 3px;
+  :hover {
+    background-color: yellow;
+  }
 `;
 // text-decoration: items.isAcquired ? "line-through" : "" ;   ^ for above figure out how to make it work.
 
@@ -75,10 +78,6 @@ function Item({ item, moveToCart, deleteItem }) {
   );
 }
 
-const showList = e => {
-  console.log(e.target);
-};
-
 function GroceryList() {
   const [items, setItems] = useState([]);
 
@@ -107,8 +106,6 @@ function GroceryList() {
   return items;
 }
 
-const PurchaseButton = event => {};
-
 function CartList() {
   const [cartItems, setCartItems] = useState([]);
   const user = firebase.auth().currentUser.uid;
@@ -135,6 +132,7 @@ function CartList() {
   }, []);
   return cartItems;
 }
+
 //ideally would have only one icon and one function for moving back and forth between cart/list
 //Coulndt' figure out solution in the meantime
 //Possibly conditional statements within firebase, but atm don't know syntax
@@ -181,7 +179,7 @@ function List() {
       <ListWrapper>
         <ItemList>
           <ItemForm />
-          <GroceryStylized onClick={showList}>
+          <GroceryStylized>
             <h3>Grocery List</h3>
             {GroceryList().map(item => (
               <Item
@@ -206,7 +204,6 @@ function List() {
             ))}
           </CartStylized>
         </ItemList>
-        <button onClick={PurchaseButton}>Purhcase</button>\
       </ListWrapper>
     </Background>
   );
